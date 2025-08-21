@@ -1,12 +1,32 @@
-
 import React from 'react';
 import { Star, Quote, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Link } from '@inertiajs/react'; // ✅ For navigation
+
+// Define TypeScript types
+interface VideoTestimonial {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  thumbnail: string;
+  rating: number;
+  preview: string;
+}
+
+interface WrittenTestimonial {
+  id: number;
+  name: string;
+  role: string;
+  text: string;
+  rating: number;
+  avatar: string;
+}
 
 const Testimonials = () => {
-  const videoTestimonials = [
+  const videoTestimonials: VideoTestimonial[] = [
     {
       id: 1,
       name: "Sarah Johnson",
@@ -36,7 +56,7 @@ const Testimonials = () => {
     }
   ];
 
-  const writtenTestimonials = [
+  const writtenTestimonials: WrittenTestimonial[] = [
     {
       id: 1,
       name: "David Thompson",
@@ -98,7 +118,14 @@ const Testimonials = () => {
           <h3 className="text-2xl font-bold text-center mb-8">Video Testimonials</h3>
           <div className="grid md:grid-cols-3 gap-8">
             {videoTestimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="gradient-card hover:shadow-lg transition-all duration-300 group cursor-pointer">
+              <Card
+                key={testimonial.id}
+                className="gradient-card hover:shadow-lg transition-all duration-300 group cursor-pointer"
+                onClick={() => {
+                  // Later: open video modal
+                  console.log(`Play video: ${testimonial.name}`);
+                }}
+              >
                 <CardContent className="p-6">
                   {/* Video Thumbnail */}
                   <div className="relative mb-4">
@@ -111,17 +138,17 @@ const Testimonials = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Content */}
                   <div className="text-center">
                     <div className="flex justify-center text-accent mb-2">
-                      {[1, 2, 3, 4, 5].map((i) => (
+                      {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
                     <h4 className="font-semibold text-primary mb-1">{testimonial.name}</h4>
                     <p className="text-sm text-secondary mb-2">{testimonial.role}</p>
-                    <p className="text-sm text-secondary mb-3">{testimonial.company}</p>
+                    <p className="text-sm text-secondary mb-2">{testimonial.company}</p>
                     <p className="text-sm italic text-secondary">"{testimonial.preview}"</p>
                   </div>
                 </CardContent>
@@ -139,7 +166,7 @@ const Testimonials = () => {
                 <CardContent className="p-6">
                   <Quote className="w-8 h-8 text-accent mb-4" />
                   <p className="text-secondary mb-4 italic">"{testimonial.text}"</p>
-                  
+
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                       <span className="text-2xl">{testimonial.avatar}</span>
@@ -148,7 +175,7 @@ const Testimonials = () => {
                       <h4 className="font-semibold text-primary">{testimonial.name}</h4>
                       <p className="text-sm text-secondary">{testimonial.role}</p>
                       <div className="flex text-accent mt-1">
-                        {[1, 2, 3, 4, 5].map((i) => (
+                        {[...Array(5)].map((_, i) => (
                           <Star key={i} className="w-3 h-3 fill-current" />
                         ))}
                       </div>
@@ -166,8 +193,14 @@ const Testimonials = () => {
           <p className="text-secondary mb-8 max-w-2xl mx-auto">
             Start your digital marketing journey today and see why thousands of professionals trust Trilo Digital Solutions.
           </p>
-          <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold">
-            Start Learning Today
+          <Button
+            size="lg"
+            className="bg-accent hover:bg-accent/90 text-primary font-semibold"
+            asChild
+          >
+            <Link href="/shop">
+              Start Learning Today
+            </Link>
           </Button>
         </div>
       </div>

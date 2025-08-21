@@ -12,6 +12,7 @@ const Home = () => {
             <Header />
             <HeroSection />
             <FeaturedProducts />
+            <Testimonials />
             <Footer /> 
             {/* <main>
                 <HeroSection />
