@@ -20,6 +20,15 @@ export default defineConfig({
     resolve: {
         alias: {
             'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
+            'public': resolve(__dirname, 'public'),
+            '@': resolve(__dirname, 'resources/js'),
+            '@components': resolve(__dirname, 'resources/js/components'),
+            '@parts': resolve(__dirname, 'resources/js/components/parts'),
+            '@pages': resolve(__dirname, 'resources/js/pages'),
+            // Optional:
+            // '@layouts': resolve(__dirname, 'resources/js/layouts'),
+            // '@hooks': resolve(__dirname, 'resources/js/hooks'),
+            // '@lib': resolve(__dirname, 'resources/js/lib'),
         },
     },
 });
