@@ -1,12 +1,29 @@
-
 import React from 'react';
 import { Star, Clock, Users, Download, Video, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Link } from '@inertiajs/react'; // ✅ For navigation
+
+// Define TypeScript types
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  originalPrice: number;
+  image: string;
+  category: string;
+  rating: number;
+  reviews: number;
+  features: string[];
+  icon: React.ComponentType<{ className?: string }>;
+  badge: string;
+  badgeColor: string;
+}
 
 const FeaturedProducts = () => {
-  const products = [
+  const products: Product[] = [
     {
       id: 2,
       title: "Must Have Sales Skills for Everyone",
@@ -69,28 +86,27 @@ const FeaturedProducts = () => {
                     </Badge>
                   )}
                 </div>
-                
+
                 {/* Product Image/Icon */}
                 <div className="mx-auto w-32 h-32 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                  {product.image.startsWith('/') ? (
-                    <img 
-                      src={product.image} 
-                      alt={product.title}
-                      className="w-full h-full object-cover rounded-2xl"
-                    />
-                  ) : (
-                    <span className="text-4xl">{product.image}</span>
-                  )}
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
                 </div>
-                
+
                 <h3 className="text-xl font-bold mb-2">{product.title}</h3>
                 <p className="text-secondary text-sm mb-4">{product.description}</p>
-                
+
                 {/* Rating */}
                 <div className="flex items-center justify-center space-x-2 mb-4">
                   <div className="flex text-accent">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className={`w-4 h-4 ${i <= product.rating ? 'fill-current' : ''}`} />
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-current' : ''}`}
+                      />
                     ))}
                   </div>
                   <span className="text-sm text-secondary">
@@ -102,12 +118,15 @@ const FeaturedProducts = () => {
               <CardContent className="pt-0">
                 {/* Features */}
                 <div className="space-y-2 mb-6">
-                  {product.features.map((feature, index) => (
-                    <div key={index} className="flex items-center text-sm">
-                      <product.icon className="w-4 h-4 text-accent mr-2" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
+                  {product.features.map((feature, index) => {
+                    const Icon = product.icon;
+                    return (
+                      <div key={index} className="flex items-center text-sm">
+                        <Icon className="w-4 h-4 text-accent mr-2" />
+                        <span>{feature}</span>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* Pricing */}
@@ -121,11 +140,26 @@ const FeaturedProducts = () => {
 
               <CardFooter className="pt-0">
                 <div className="w-full space-y-3">
-                  <Button className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold">
+                  {/* Add to Cart */}
+                  <Button
+                    className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold"
+                    onClick={() => {
+                      // Later: use Inertia.post('/cart', { id: product.id })
+                      console.log(`Added ${product.title} to cart`);
+                    }}
+                  >
                     Add to Cart
                   </Button>
-                  <Button variant="outline" className="w-full">
-                    Preview Content
+
+                  {/* Preview Content */}
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    asChild // ✅ Use asChild to wrap Link
+                  >
+                    <Link href={`/products/${product.id}`}>
+                      Preview Content
+                    </Link>
                   </Button>
                 </div>
               </CardFooter>
@@ -143,8 +177,14 @@ const FeaturedProducts = () => {
             <span className="text-xl line-through opacity-60">$500</span>
             <Badge className="bg-accent text-primary">Save $125</Badge>
           </div>
-          <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-semibold">
-            Get Bundle Now
+          <Button
+            size="lg"
+            className="bg-accent hover:bg-accent/90 text-primary font-semibold"
+            asChild
+          >
+            <Link href="/products/bundle">
+              Get Bundle Now
+            </Link>
           </Button>
         </div>
       </div>
