@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-br from-navy-900 to-indigo-900 py-20 lg:py-32">
+    <section className="bg-gradient-to-br from-blue-900 to-purple-900 py-24 lg:py-32 relative overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
