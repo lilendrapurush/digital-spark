@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { ArrowRight, Play, Star, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react'; // ✅ Correct Inertia Link
 
 const HeroSection = () => {
   return (
@@ -13,11 +12,28 @@ const HeroSection = () => {
           {/* Content */}
           <div className="animate-fade-in-up">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-              Empower your digital journey Choose our carefully curated collection of digital marketing resources designed to 
+              Empower your digital journey. Choose our carefully curated collection of digital marketing resources designed to{' '}
               <span className="text-accent">accelerate your success</span>
             </h1>
-            
-            
+            <div className="flex flex-wrap gap-4 mb-8">
+              <Button asChild size="lg" className="bg-accent text-primary hover:bg-accent/90">
+                <Link href="/shop"> {/* ✅ Inertia Link with href */}
+                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
+                <Play className="mr-2 h-5 w-5" />
+                Watch Demo
+              </Button>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-current text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-white/80">5.0 from 128 reviews</span>
+            </div>
           </div>
 
           {/* Hero Image/Video */}
@@ -41,7 +57,7 @@ const HeroSection = () => {
               <div className="flex items-center justify-between mb-4">
                 <span className="text-2xl font-bold text-primary">$50</span>
               </div>
-              <Link to="/shop">
+              <Link href="/shop"> {/* ✅ Inertia Link */}
                 <Button className="w-full bg-[#007bff] hover:bg-[#007bff]/90 text-white">
                   <ShoppingCart className="mr-2 h-4 w-4" />
                   Buy Now
