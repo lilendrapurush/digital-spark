@@ -6,18 +6,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter', 'ui-sans-serif'],
-      }// tailwind.config.js
-module.exports = {
-  content: [
-    "./resources/**/*.{js,jsx,ts,tsx}",
-    "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-  ],
-  theme: {
-    extend: {
       colors: {
-        // Add your brand colors to Tailwind's palette
         primary: {
           50: '#FFF8E6',
           100: '#FFEECC',
@@ -60,10 +49,10 @@ module.exports = {
           '50%': { boxShadow: '0 0 20px rgba(255, 193, 7, 0.8)' },
         },
       },
-    },
-  },
-  plugins: [],
-}
+      boxShadow: {
+        'card-hover': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        'glow': '0 0 20px rgba(255, 193, 7, 0.5)',
+      }
     },
   },
   plugins: [],
