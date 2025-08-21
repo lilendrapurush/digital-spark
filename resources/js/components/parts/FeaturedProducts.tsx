@@ -1,191 +1,101 @@
-import React from 'react';
-import { Star, Clock, Users, Download, Video, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Link } from '@inertiajs/react'; // ✅ For navigation
-
-// Define TypeScript types
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  originalPrice: number;
-  image: string;
-  category: string;
-  rating: number;
-  reviews: number;
-  features: string[];
-  icon: React.ComponentType<{ className?: string }>;
-  badge: string;
-  badgeColor: string;
-}
+import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 const FeaturedProducts = () => {
-  const products: Product[] = [
+  const products = [
     {
-      id: 2,
+      id: 1,
       title: "Must Have Sales Skills for Everyone",
       description: "Comprehensive sales training program covering essential techniques, psychology-based strategies, and proven methodologies that work across all industries and experience levels.",
+      features: ["6+ Hours Content", "Psychology-Based Techniques", "Universal Applications", "Practical Exercises"],
       price: 65,
       originalPrice: 95,
-      image: "/lovable-uploads/62798957-c9f9-43b0-97c5-9e09c47df329.png",
-      category: "Audiovisual",
       rating: 4.8,
       reviews: 89,
-      features: ["6+ Hours Content", "Psychology-Based Techniques", "Universal Applications", "Practical Exercises"],
-      icon: Video,
-      badge: "Most Popular",
-      badgeColor: "bg-accent",
+      image: "/lovable-uploads/62798957-c9f9-43b0-97c5-9e09c47df329.png",
+      tags: ["Most Popular", "Save $30"],
     },
     {
-      id: 3,
+      id: 2,
       title: "Live Training on Writing Prompts for Marketing, Sales, and Branding",
       description: "Interactive live sessions teaching you how to craft compelling marketing copy and sales scripts.",
+      features: ["3 Live Sessions", "1-on-1 Coaching", "Certificate"],
       price: 350,
       originalPrice: 500,
-      image: "/lovable-uploads/3d723527-8584-47ec-bab9-c729eea16372.png",
-      category: "Live Training",
-      rating: 5.0,
+      rating: 5,
       reviews: 45,
-      features: ["3 Live Sessions", "1-on-1 Coaching", "Certificate"],
-      icon: Calendar,
-      badge: "Premium",
-      badgeColor: "bg-purple-500",
+      image: "/lovable-uploads/3d723527-8584-47ec-bab9-c729eea16372.png",
+      tags: ["Premium", "Save $150"],
     },
   ];
 
   return (
-    <section id="shop" className="py-20 bg-muted/20">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-accent text-primary">Featured Products</Badge>
-          <h2 className="text-4xl font-bold mb-4">
-            Empower Your <span className="text-accent">Digital Journey</span>
-          </h2>
-          <p className="text-xl text-secondary max-w-2xl mx-auto">
-            Choose from our carefully curated collection of digital marketing resources designed to accelerate your success.
-          </p>
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {products.map((product) => (
-            <Card key={product.id} className="gradient-card hover:shadow-xl transition-all duration-300 group">
-              <CardHeader className="text-center pb-4">
-                {/* Badge */}
+            <div 
+              key={product.id} 
+              className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1"
+            >
+              <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
-                  <Badge className={`${product.badgeColor} text-white`}>
-                    {product.badge}
-                  </Badge>
-                  {product.originalPrice > product.price && (
-                    <Badge variant="destructive">
-                      Save ${product.originalPrice - product.price}
-                    </Badge>
-                  )}
+                  {product.tags.map((tag, index) => (
+                    <span 
+                      key={index} 
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        tag === "Most Popular" ? "bg-primary-500 text-white" : 
+                        tag === "Premium" ? "bg-purple-500 text-white" : 
+                        "bg-red-500 text-white"
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-
-                {/* Product Image/Icon */}
-                <div className="mx-auto w-32 h-32 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover rounded-2xl"
+                <div className="flex items-center justify-center h-32 bg-blue-100 rounded-lg overflow-hidden">
+                  <img 
+                    src={product.image} 
+                    alt={product.title} 
+                    className="object-cover w-full h-full"
                   />
                 </div>
-
-                <h3 className="text-xl font-bold mb-2">{product.title}</h3>
-                <p className="text-secondary text-sm mb-4">{product.description}</p>
-
-                {/* Rating */}
-                <div className="flex items-center justify-center space-x-2 mb-4">
-                  <div className="flex text-accent">
+                <h2 className="text-xl font-bold mt-4">{product.title}</h2>
+                <p className="text-gray-600 mt-2">{product.description}</p>
+                <div className="flex items-center mt-4">
+                  <div className="flex text-primary-400">
                     {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-current' : ''}`}
-                      />
+                      <Star key={i} className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-current' : ''}`} />
                     ))}
                   </div>
-                  <span className="text-sm text-secondary">
-                    {product.rating} ({product.reviews} reviews)
+                  <span className="ml-2 text-gray-600">
+                    {product.rating.toFixed(1)} ({product.reviews} reviews)
                   </span>
                 </div>
-              </CardHeader>
-
-              <CardContent className="pt-0">
-                {/* Features */}
-                <div className="space-y-2 mb-6">
-                  {product.features.map((feature, index) => {
-                    const Icon = product.icon;
-                    return (
-                      <div key={index} className="flex items-center text-sm">
-                        <Icon className="w-4 h-4 text-accent mr-2" />
-                        <span>{feature}</span>
-                      </div>
-                    );
-                  })}
+                <ul className="mt-4 space-y-2">
+                  {product.features.map((feature, index) => (
+                    <li key={index} className="flex items-center text-gray-600">
+                      <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 flex items-baseline">
+                  <span className="text-3xl font-bold text-primary-500">${product.price}</span>
+                  <span className="text-gray-500 ml-2 line-through">${product.originalPrice}</span>
                 </div>
-
-                {/* Pricing */}
-                <div className="flex items-center justify-center space-x-2 mb-6">
-                  <span className="text-3xl font-bold text-primary">${product.price}</span>
-                  {product.originalPrice > product.price && (
-                    <span className="text-lg text-secondary line-through">${product.originalPrice}</span>
-                  )}
-                </div>
-              </CardContent>
-
-              <CardFooter className="pt-0">
-                <div className="w-full space-y-3">
-                  {/* Add to Cart */}
-                  <Button
-                    className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold"
-                    onClick={() => {
-                      // Later: use Inertia.post('/cart', { id: product.id })
-                      console.log(`Added ${product.title} to cart`);
-                    }}
-                  >
+                <div className="mt-4 space-y-2">
+                  <Button className="w-full bg-primary-500 hover:bg-primary-600 text-white">
                     Add to Cart
                   </Button>
-
-                  {/* Preview Content */}
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    asChild // ✅ Use asChild to wrap Link
-                  >
-                    <Link href={`/products/${product.id}`}>
-                      Preview Content
-                    </Link>
+                  <Button variant="outline" className="w-full border-gray-300 text-gray-600 hover:bg-gray-100">
+                    Preview Content
                   </Button>
                 </div>
-              </CardFooter>
-            </Card>
+              </div>
+            </div>
           ))}
-        </div>
-
-        {/* Bundle Offer */}
-        <div className="mt-16 bg-gradient-to-r from-primary to-primary/80 text-white rounded-2xl p-8 text-center">
-          <Badge className="mb-4 bg-accent text-primary">Special Offer</Badge>
-          <h3 className="text-2xl font-bold mb-4">Complete Learning Bundle</h3>
-          <p className="text-white/90 mb-6">Get all three products together and save 25%!</p>
-          <div className="flex items-center justify-center space-x-4 mb-6">
-            <span className="text-3xl font-bold">$375</span>
-            <span className="text-xl line-through opacity-60">$500</span>
-            <Badge className="bg-accent text-primary">Save $125</Badge>
-          </div>
-          <Button
-            size="lg"
-            className="bg-accent hover:bg-accent/90 text-primary font-semibold"
-            asChild
-          >
-            <Link href="/products/bundle">
-              Get Bundle Now
-            </Link>
-          </Button>
         </div>
       </div>
     </section>

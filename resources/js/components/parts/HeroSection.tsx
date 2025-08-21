@@ -1,76 +1,57 @@
-import React from 'react';
-import { ArrowRight, Play, Star, ShoppingCart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Link } from '@inertiajs/react'; // ✅ Correct Inertia Link
+import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const HeroSection = () => {
   return (
-    <section id="home" className="gradient-hero text-white py-20 lg:py-32">
+    <section className="bg-gradient-to-br from-navy-900 to-indigo-900 py-20 lg:py-32">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="animate-fade-in-up">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-              Empower your digital journey. Choose our carefully curated collection of digital marketing resources designed to{' '}
-              <span className="text-accent">accelerate your success</span>
+            <Badge className="mb-4 bg-primary-500 text-navy-900">Featured Products</Badge>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Empower your digital journey. Choose our carefully curated collection of digital marketing resources designed to accelerate your success
             </h1>
-            <div className="flex flex-wrap gap-4 mb-8">
-              <Button asChild size="lg" className="bg-accent text-primary hover:bg-accent/90">
-                <Link href="/shop"> {/* ✅ Inertia Link with href */}
-                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Demo
-              </Button>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex">
+            <div className="flex items-center mb-8">
+              <div className="flex text-primary-400">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-current text-yellow-400" />
+                  <Star key={i} className="w-5 h-5 fill-current" />
                 ))}
               </div>
-              <span className="text-white/80">5.0 from 128 reviews</span>
+              <span className="ml-2 text-white">5.0 from 128 reviews</span>
+            </div>
+            <div className="flex space-x-4">
+              <Button variant="outline" className="border-white text-white hover:bg-white/10">
+                Get Started
+              </Button>
+              <Button className="bg-white text-navy-900 hover:bg-gray-100">
+                Learn More
+              </Button>
             </div>
           </div>
 
-          {/* Hero Image/Video */}
-          <div className="relative animate-fade-in-up">
-            <div className="relative bg-gradient-card rounded-2xl p-8 shadow-2xl">
-              <div className="flex items-center justify-center mb-6">
-                <div className="w-80 h-96 rounded-lg overflow-hidden shadow-2xl">
-                  <img 
-                    src="/lovable-uploads/ca2331b0-6aa9-4ad7-ae6b-515e5c664a07.png" 
-                    alt="AI for Brand Building, Marketing and More Sales - Book Cover"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold text-black mb-2 text-center">
-                AI for Brand Building, Marketing, and More Sales
-              </h3>
-              <p className="text-black mb-4 text-center">
-                100+ Free AI Tools for Branding, Sales and Marketing with Instructions
-              </p>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-2xl font-bold text-primary">$50</span>
-              </div>
-              <Link href="/shop"> {/* ✅ Inertia Link */}
-                <Button className="w-full bg-[#007bff] hover:bg-[#007bff]/90 text-white">
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  Buy Now
-                </Button>
-              </Link>
+          {/* Product Card */}
+          <div className="relative">
+            <img 
+              src="/lovable-uploads/ca2331b0-6aa9-4ad7-ae6b-515e5c664a07.png" 
+              alt="AI Marketing Guide" 
+              className="rounded-lg shadow-2xl transform transition-transform hover:scale-105"
+            />
+            <div className="absolute -bottom-6 right-6 bg-primary-500 text-white px-3 py-1 rounded-full animate-pulse-glow">
+              New
             </div>
-            
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 bg-accent text-primary p-3 rounded-full shadow-lg">
-              <Star className="h-6 w-6 fill-current" />
-            </div>
-            <div className="absolute -bottom-4 -left-4 bg-white text-primary p-3 rounded-full shadow-lg">
-              <Badge className="bg-primary text-white">New</Badge>
+            <div className="mt-6 text-center">
+              <h3 className="text-2xl font-bold text-white mb-2">AI for Brand Building, Marketing, and More Sales</h3>
+              <p className="text-white mb-6">100+ Free AI Tools for Branding, Sales, and Marketing with Instructions</p>
+              <div className="flex items-center justify-center">
+                <span className="text-3xl font-bold text-white">$50</span>
+                <span className="text-white ml-2 line-through">$75</span>
+              </div>
+              <Button className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white">
+                <ShoppingCart className="mr-2 h-4 w-4" /> Buy Now
+              </Button>
             </div>
           </div>
         </div>
