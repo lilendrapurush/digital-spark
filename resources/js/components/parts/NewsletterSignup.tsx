@@ -1,22 +1,50 @@
-
 import React, { useState } from 'react';
 import { Mail, Gift, ArrowRight, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { router } from '@inertiajs/react'; // ✅ For form submission
 
-const NewsletterSignup = () => {
+// Define props if needed later
+interface NewsletterSignupProps {
+  // e.g., defaultSuccessMessage?: string;
+}
+
+const NewsletterSignup: React.FC<NewsletterSignupProps> = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string }>({});
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      // Handle newsletter signup
-      setIsSubscribed(true);
-      setEmail('');
+
+    // Simple validation
+    if (!email) {
+      setErrors({ email: 'Email is required' });
+      return;
     }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setErrors({ email: 'Please enter a valid email' });
+      return;
+    }
+
+    // ✅ Use Inertia to submit to Laravel
+    // This will POST to `/newsletter` and can handle validation + success
+    router.post('/newsletter', {
+      email,
+      resource: 'AI Marketing Guide',
+    }, {
+      onSuccess: () => {
+        setIsSubscribed(true);
+        setEmail('');
+        setErrors({});
+      },
+      onError: (validationErrors) => {
+        setErrors(validationErrors);
+      },
+    });
   };
 
   if (isSubscribed) {
@@ -30,7 +58,7 @@ const NewsletterSignup = () => {
               <p className="text-secondary mb-6">
                 Check your email for your free AI Marketing Guide and exclusive updates.
               </p>
-              <Button 
+              <Button
                 className="bg-accent hover:bg-accent/90 text-primary font-semibold"
                 onClick={() => setIsSubscribed(false)}
               >
@@ -51,7 +79,7 @@ const NewsletterSignup = () => {
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               {/* Content */}
               <div>
-                <Badge className="mb-4 bg-accent text-primary">
+                <Badge className="mb-4 bg-accent text-primary flex items-center">
                   <Gift className="w-4 h-4 mr-2" />
                   Free Resource
                 </Badge>
@@ -61,7 +89,7 @@ const NewsletterSignup = () => {
                 <p className="text-secondary mb-6 text-lg">
                   Join 25,000+ marketers receiving weekly insights, exclusive content, and early access to new resources. Plus, download our comprehensive AI Marketing Guide absolutely free!
                 </p>
-                
+
                 {/* Benefits */}
                 <div className="space-y-3 mb-6">
                   {[
@@ -94,21 +122,27 @@ const NewsletterSignup = () => {
                         placeholder="Enter your email address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="pl-10"
-                        required
+                        className={`pl-10 ${errors.email ? 'border-red-500' : ''}`}
+                        aria-invalid={errors.email ? 'true' : 'false'}
+                        aria-describedby={errors.email ? 'email-error' : undefined}
                       />
                     </div>
+                    {errors.email && (
+                      <p id="email-error" className="text-red-500 text-sm mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
-                  
-                  <Button 
-                    type="submit" 
+
+                  <Button
+                    type="submit"
                     className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold"
                     size="lg"
                   >
                     Download Free Guide
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                  
+
                   <p className="text-xs text-secondary text-center">
                     No spam. Unsubscribe anytime. We respect your privacy.
                   </p>

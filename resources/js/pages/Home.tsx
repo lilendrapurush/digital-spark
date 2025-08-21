@@ -9,18 +9,14 @@ import NewsletterSignup from '@components/parts/NewsletterSignup';
 const Home = () => {
     return (
         <div className="min-h-screen">            
-            <Header />
-            <HeroSection />
-            <FeaturedProducts />
-            <Testimonials />
-            <Footer /> 
-            {/* <main>
+            <Header />            
+            <main>
                 <HeroSection />
                 <FeaturedProducts />
                 <Testimonials />
                 <NewsletterSignup />
             </main>
-            <Footer /> */}
+            <Footer />
         </div>
   );
 }
