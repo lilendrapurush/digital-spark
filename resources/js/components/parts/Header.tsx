@@ -28,7 +28,7 @@ const Header = () => {
             </div>
             <div className="px-3 py-1">
               <h1 className="text-xl font-bold text-yellow-500">Help and Grow</h1>
-              <p className="text-sm text-yellow-200 font-medium">Digital Solutions</p>
+              <p className="text-sm text-yellow-500 font-medium">Digital Solutions</p>
             </div>
           </Link>
 
@@ -41,19 +41,31 @@ const Header = () => {
             </div>
             
             <div className="relative group">
-              <Link href="/shop" className="text-lg font-medium text-gray-700 hover:text-yellow-500 transition-colors duration-200 flex items-center">
+              <Link
+                href="/shop"
+                className="text-lg font-medium text-gray-700 hover:text-yellow-500 transition-colors duration-200 flex items-center"
+              >
                 Shop
                 <ChevronDown className="ml-1 w-4 h-4" />
               </Link>
               {/* Dropdown Menu */}
-              <div className="absolute hidden group-hover:block w-48 mt-2 py-2 bg-white rounded-xl shadow-xl border border-gray-100">
-                <Link href="/shop/ebooks" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-yellow-500 transition-colors">
+              <div className="absolute top-full left-0 mt-1 w-48 py-2 bg-white rounded-xl shadow-xl border border-gray-100 z-10 group-hover:block hidden">
+                <Link
+                  href="/shop/ebooks"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-yellow-500 transition-colors"
+                >
                   E-books
                 </Link>
-                <Link href="/shop/audiovisual" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-yellow-500 transition-colors">
+                <Link
+                  href="/shop/audiovisual"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-yellow-500 transition-colors"
+                >
                   Audiovisual Content
                 </Link>
-                <Link href="/shop/live-training" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-yellow-500 transition-colors">
+                <Link
+                  href="/shop/live-training"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-yellow-500 transition-colors"
+                >
                   Live Training
                 </Link>
               </div>
