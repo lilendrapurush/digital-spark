@@ -26,9 +26,9 @@ const Header = () => {
             <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
               <span className="text-white font-bold text-xl">H</span>
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Help and Grow</h1>
-              <p className="text-sm text-gray-600">Digital Solutions</p>
+            <div className="bg-black/20 backdrop-blur-sm rounded-lg px-3 py-1">
+              <h1 className="text-xl font-bold text-white">Help and Grow</h1>
+              <p className="text-sm text-yellow-200 font-medium">Digital Solutions</p>
             </div>
           </Link>
 
