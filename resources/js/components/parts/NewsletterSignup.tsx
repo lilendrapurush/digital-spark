@@ -4,14 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { router } from '@inertiajs/react'; // ✅ For form submission
+import { router } from '@inertiajs/react';
 
-// Define props if needed later
-interface NewsletterSignupProps {
-  // e.g., defaultSuccessMessage?: string;
-}
-
-const NewsletterSignup: React.FC<NewsletterSignupProps> = () => {
+const NewsletterSignup = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [errors, setErrors] = useState<{ email?: string }>({});
@@ -19,7 +14,6 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simple validation
     if (!email) {
       setErrors({ email: 'Email is required' });
       return;
@@ -30,8 +24,6 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = () => {
       return;
     }
 
-    // ✅ Use Inertia to submit to Laravel
-    // This will POST to `/newsletter` and can handle validation + success
     router.post('/newsletter', {
       email,
       resource: 'AI Marketing Guide',
@@ -86,7 +78,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = () => {
                 <h3 className="text-3xl font-bold text-primary mb-4">
                   Get Your Free AI Marketing Guide
                 </h3>
-                <p className="text-secondary mb-6 text-lg">
+                <p className="text-primary mb-6 text-lg">
                   Join 25,000+ marketers receiving weekly insights, exclusive content, and early access to new resources. Plus, download our comprehensive AI Marketing Guide absolutely free!
                 </p>
 
@@ -99,7 +91,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = () => {
                     "Free templates and resources",
                     "Industry expert interviews"
                   ].map((benefit, index) => (
-                    <div key={index} className="flex items-center text-secondary">
+                    <div key={index} className="flex items-center text-primary">
                       <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
                       <span>{benefit}</span>
                     </div>
